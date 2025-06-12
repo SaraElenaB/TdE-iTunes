@@ -69,5 +69,34 @@ class Controller:
 
 
     def handleGetSetAlbum(self, e):
-        pass
 
+        sogliaTxt = self._view._txtInSoglia.value
+        if sogliaTxt == "":
+            self._view.txt_result.controls.clear()
+            self._view.txt_result.controls.append(ft.Text(f"Attenzione, soglia massima di  durata non inserita", color="red"))
+            self._view.update_page()
+            return
+
+        try:
+            sogliaInt = int(sogliaTxt)
+        except ValueError:
+            self._view.txt_result.controls.clear()
+            self._view.txt_result.controls.append( ft.Text(f"Attenzione, soglia massima non è un intero", color="red"))
+            self._view.update_page()
+            return
+
+        if self._albumSelected is None:
+            self._view.txt_result.controls.clear()
+            self._view.txt_result.controls.append(ft.Text(f"Attenzione, album non selezionato", color="red"))
+            self._view.update_page()
+            return
+
+        setOfNodes, sumDurate = self._model.getSetOfNodes( self._albumSelected, sogliaInt)
+        self._view.txt_result.controls.clear()
+        self._view.txt_result.controls.append(ft.Text(f"Ho trovato un set di album che soddisfa le specifiche: dimensione {len(setOfNodes)}, durata totale: {sumDurate}"))
+        self._view.txt_result.controls.append(ft.Text(f"Di seguito gli album che fanno parte della soluzione trovata"))
+        for n in setOfNodes:
+            self._view.txt_result.controls.append(
+                ft.Text(n))
+
+        self._view.update_page()
