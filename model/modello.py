@@ -15,6 +15,7 @@ class Model:
         self._bestSet = {}
         self._maxLen = 0
 
+    # --------------------------------------------------------------------------------------------------------------------------------
     def buildGraph(self, dMin):
 
         self._grafo.clear()
@@ -27,12 +28,14 @@ class Model:
         self._grafo.add_edges_from(self._allEdges)
         return self._grafo
 
+    # --------------------------------------------------------------------------------------------------------------------------------
     def getGraphDetails(self):
         return self._grafo.number_of_nodes(), self._grafo.number_of_edges()
 
     def getAllNodes(self):
         return list(self._grafo.nodes()) #altrimenti nodoView
 
+    # --------------------------------------------------------------------------------------------------------------------------------
     def getInfoConnessa(self, a1):
 
         cc = nx.node_connected_component(self._grafo, a1)
@@ -46,6 +49,7 @@ class Model:
             sumDurata += n.dTotMin
         return sumDurata
 
+    # --------------------------------------------------------------------------------------------------------------------------------
     #PUNTO 2:
     def getSetOfNodes(self, a1, dTot):
 
@@ -68,6 +72,7 @@ class Model:
 
         return self._bestSet, self._getDurataComplessiva(self._bestSet)
 
+    # --------------------------------------------------------------------------------------------------------------------------------
     def _ricorsione(self, parziale, rimanenti, dTot):
 
         # terminale: #ammissibile? --> viola i vincoli?
@@ -86,6 +91,7 @@ class Model:
             self._ricorsione(parziale, rimanenti, dTot)
             parziale.remove(n)
             rimanenti.add(n) #backtracking opposto --> serve per andare + veloce
+    #--------------------------------------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
     m = Model()

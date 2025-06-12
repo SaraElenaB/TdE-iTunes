@@ -10,6 +10,7 @@ class Controller:
 
         self._albumSelected = None
 
+    # --------------------------------------------------------------------------------------------------------------------------------
     def _fillDD(self, listaNodi):
 
         listaNodi.sort( key= lambda x: x.Title)
@@ -26,6 +27,7 @@ class Controller:
 
         self._albumSelected = e.control.data
 
+    # --------------------------------------------------------------------------------------------------------------------------------
     def handleCreaGrafo(self, e):
 
         dMin = self._view._txtInDurata.value
@@ -50,10 +52,9 @@ class Controller:
         self._view.txt_result.controls.append(ft.Text(f"Num nodi: {numNodi}, num edges: {numEdges}"))
 
         self._fillDD(self._model.getAllNodes())
-
         self._view.update_page()
 
-
+    # --------------------------------------------------------------------------------------------------------------------------------
     def handleAnalisiComp(self, e):
 
         if self._albumSelected is None:
@@ -67,7 +68,7 @@ class Controller:
         self._view.txt_result.controls.append( ft.Text(f"La componente connessa che contiene {self._albumSelected} ha dimensione {size} e una durata totale di {dTotCC} minuti"))
         self._view.update_page()
 
-
+    # --------------------------------------------------------------------------------------------------------------------------------
     def handleGetSetAlbum(self, e):
 
         sogliaTxt = self._view._txtInSoglia.value
@@ -100,3 +101,4 @@ class Controller:
                 ft.Text(n))
 
         self._view.update_page()
+    #--------------------------------------------------------------------------------------------------------------------------------
